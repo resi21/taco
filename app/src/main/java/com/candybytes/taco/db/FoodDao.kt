@@ -18,4 +18,6 @@ interface FoodDao {
     @Query("SELECT * FROM food")
     suspend fun getAllAsync(): List<Food>
 
+    @Query("SELECT * FROM food WHERE description LIKE :searchText")
+    suspend fun getSearchResult(searchText: String): List<Food>
 }

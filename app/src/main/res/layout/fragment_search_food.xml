@@ -2,7 +2,10 @@
 <layout>
 
     <data>
-        <variable name="viewModel" type="com.candybytes.taco.ui.vm.SearchFoodViewModel"/>
+
+        <variable
+            name="viewModel"
+            type="com.candybytes.taco.ui.vm.SearchFoodViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,8 +14,37 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.CategoryListFragment">
+        tools:context=".ui.fragments.FoodFragment">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimaryVariant"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/search_food"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:hint="Search"
+                android:text="@={viewModel.searchText}" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/food_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:adapter="@{viewModel.adapter}"
+            app:data="@{viewModel.foodList}"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="1"
+            tools:listitem="@layout/item_food" />
+<!--
         <TextView
             android:id="@+id/message2"
             android:layout_width="wrap_content"
@@ -25,6 +57,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.574"
             tools:text="Replace this with a list showing all foods from DB" />
-
+-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

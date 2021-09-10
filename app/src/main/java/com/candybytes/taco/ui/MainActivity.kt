@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,6 +14,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.candybytes.taco.R
 import com.candybytes.taco.databinding.MainActivityBinding
+import com.candybytes.taco.ui.fragments.CategoryListFragment
+import com.candybytes.taco.ui.fragments.SearchFoodFragment
 import com.candybytes.taco.ui.vm.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,6 +59,22 @@ class MainActivity : AppCompatActivity() {
             navBottomBar.setupWithNavController(navController)
         }
 
+        val categoryListFragment = CategoryListFragment()
+        val searchFragment = SearchFoodFragment()
+
+        bottomNavigation.setOnNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.categoriesFragment -> {
+                    setCurrentFragment(categoryListFragment)
+                    true
+                }
+                R.id.searchFoodFragment -> {
+                    setCurrentFragment(searchFragment)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -92,5 +111,12 @@ class MainActivity : AppCompatActivity() {
         } while (deltaTime < (4 * 60 * 60 * 1000))
 
         bottomNavigation.menu[1].title = "stop it ;-)"
+    }
+
+    private fun setCurrentFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.nav_host_fragment, fragment)
+            commit()
+        }
     }
 }

@@ -15,14 +15,16 @@ class CategoryListFragment : Fragment() {
 
     private val viewModel: CategoriesViewModel by viewModels()
 
+    private lateinit var binding: FragmentCategoryListBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return FragmentCategoryListBinding.inflate(layoutInflater, container, false).apply {
-            viewModel = this@CategoryListFragment.viewModel
-            lifecycleOwner = this@CategoryListFragment
-        }.root
+        binding = FragmentCategoryListBinding.inflate(layoutInflater, container, false)
+        binding.viewModel = this@CategoryListFragment.viewModel
+        binding.lifecycleOwner = this@CategoryListFragment
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
